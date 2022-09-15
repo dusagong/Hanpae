@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:hanpae/screens/category_screen.dart';
 import 'package:hanpae/screens/homescreen.dart';
 import 'package:hanpae/screens/like_screen.dart';
@@ -25,7 +23,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     HomeScreen(),
     const CategoryScreen(),
     const LikePage(),
-    NotificationPage(),
+    const NotificationPage(),
     
   ];
 
@@ -39,28 +37,29 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     return BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.home_outlined),
             label: 'Home',
-            backgroundColor: Colors.lightGreen,
+            backgroundColor: Colors.white,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.category),
+            icon: Icon(Icons.category_outlined),
             label: 'Category',
-            backgroundColor: Colors.lightGreen,
+            backgroundColor: Colors.white,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
+            icon: Icon(Icons.favorite_border_outlined),
             label: 'Like',
-            backgroundColor: Colors.lightGreen,
+            backgroundColor: Colors.white,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
+            icon: Icon(Icons.notifications_outlined),
             label: 'Notifications',
-            backgroundColor: Colors.lightGreen,
+            backgroundColor: Colors.white,
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Color.fromARGB(255, 255, 245, 105),
+        selectedItemColor: Color.fromARGB(255, 6, 15, 82),
+        unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
       );
   }
@@ -70,7 +69,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Hanpae'),
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: Color.fromARGB(255, 7, 14, 66),
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),

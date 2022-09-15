@@ -41,7 +41,7 @@ class _LogInState extends State<LogIn>{
     return Scaffold(
       appBar: AppBar(
         title: Text('Log in'),
-        backgroundColor: Color.fromARGB(255, 119, 224, 90),
+        backgroundColor: Color.fromARGB(255, 6, 15, 82),
         centerTitle: true,
         actions: <Widget>[
         ],

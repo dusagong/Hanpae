@@ -24,7 +24,7 @@ class _BoardScreenState extends State<BoardScreen> {
       body: Column(
         children: [
           StreamBuilder<QuerySnapshot> (
-            stream: FirebaseFirestore.instance.collection(widget.pageInfo).doc('Posts').collection('Posts').orderBy('timeStamp', descending: true).snapshots(),
+            stream: FirebaseFirestore.instance.collection("Posts").doc(widget.pageInfo).collection('posts').orderBy('timeStamp', descending: true).snapshots(),
             builder:(context, snapshot) {
               if(snapshot.connectionState == ConnectionState.waiting) {
                 return CircularProgressIndicator();
@@ -40,6 +40,7 @@ class _BoardScreenState extends State<BoardScreen> {
                         pageInfo: widget.pageInfo,
                         titleStr: snapshot.data!.docs[index]['title'],
                         explainStr: snapshot.data!.docs[index]['explain'],
+                        keyValue: snapshot.data!.docs[index]['key'],
                         imgURL: snapshot.data!.docs[index]['firstPicUrl'],
                       )
                         ),
@@ -71,8 +72,7 @@ class _BoardScreenState extends State<BoardScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () => Get.to(CreatePostPage()),
         child: Icon(Icons.add),
-        backgroundColor: Colors.yellowAccent,
-        elevation: 3,
+        backgroundColor: Color.fromARGB(255, 128, 211, 255),
       ),
     );
   }

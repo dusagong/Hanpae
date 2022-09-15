@@ -23,11 +23,11 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.lightGreen,
+          backgroundColor: Color.fromARGB(255, 6, 15, 82),
           titleTextStyle: TextStyle(color: Colors.white, fontSize: 22),
           iconTheme: IconThemeData(color: Colors.white),
         ),
-        primarySwatch: Colors.lightGreen,
+        primarySwatch: Colors.blue,
       ),
       home: SplashScreen(),
     );

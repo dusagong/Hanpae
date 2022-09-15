@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'dart:math';
 
@@ -40,6 +41,29 @@ class _CreatePostPageState extends State<CreatePostPage> {
     contentUpload = false;
   }
 
+  void showDatePickerPop() {
+    Future<DateTime?> selectedDate = showDatePicker(
+      context: context,
+      initialDate: DateTime.now(), //초기값
+      firstDate: DateTime(2022), //시작일
+      lastDate: DateTime(2024), //마지막일
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData.dark(), //다크 테마
+          child: child!,
+        );
+      },
+    );
+
+    selectedDate.then((dateTime) {
+      Fluttertoast.showToast(
+        msg: dateTime.toString(),
+        toastLength: Toast.LENGTH_LONG,
+        //gravity: ToastGravity.CENTER,  //위치(default 는 아래)
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,21 +74,50 @@ class _CreatePostPageState extends State<CreatePostPage> {
         padding: const EdgeInsets.only(top: 10.0),
         child: SingleChildScrollView(
           child: Column(children: [
-            DropdownButton(
-              value: _selectedValue,
-              items: _valueList.map(
-                (value) {
-                  return DropdownMenuItem(
-                    value: value,
-                    child: Text(value),
-                  );
-                },
-              ).toList(),
-              onChanged: (value) {
-                setState(() {
-                  if (value != null) _selectedValue = value as String;
-                });
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 23),
+                  child: DropdownButton(
+                    value: _selectedValue,
+                    items: _valueList.map(
+                      (value) {
+                        return DropdownMenuItem(
+                          value: value,
+                          child: Text(value),
+                        );
+                      },
+                    ).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        if (value != null) _selectedValue = value as String;
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+            TextButton(
+              onPressed: () {
+                showDatePickerPop();
               },
+              child: Container(
+                height: 40,
+                margin: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.only(
+                  left: 15,
+                ),
+                decoration: BoxDecoration(
+                    border: Border.all(
+                  width: 3,
+                  color: Color.fromARGB(255, 255, 188, 64),
+                )),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  '마감일 설정',
+                ),
+              ),
             ),
             TextField(
               controller: titleController,
@@ -101,7 +154,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
             ElevatedButton(
               onPressed: _selectedValue == '카테고리' || story =="" || postTitle == ""? null : () {
                 String postKey =getRandomString(16);
-                fireStore.collection(_selectedValue).doc('Posts').collection('Posts').doc(postKey).set({
+                fireStore.collection("Posts").doc(_selectedValue).collection('posts').doc(postKey).set({
                   "key": postKey,
                   "title": postTitle,
                   "explain": story,
@@ -116,7 +169,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
                   // FirebaseFirestore
                   // fireStore = FirebaseFirestore.instance;
               },
-              style: ElevatedButton.styleFrom(onSurface: Colors.lightGreen),
+              style: ElevatedButton.styleFrom(onSurface: Color.fromARGB(255, 63, 141, 180)),
               child: Text("upload")),
           ]),
         ),

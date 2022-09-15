@@ -12,33 +12,30 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
   void initState() {
-    Timer(Duration(seconds: 3),(){
+    Timer(Duration(seconds: 3), () {
       Get.offAll(auth());
     });
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          Container(
-            color: Colors.green,
-            child: Center(
+        body: Stack(
+      alignment: Alignment.center,
+      children: [
+        Container(
+          color: Colors.green,
+          child: Center(
               // child: Text(
               //   "Loading..."
               // )
-            ),
-          ),
-          CircularProgressIndicator()
-        ],
-      )
-    );
+              ),
+        ),
+        CircularProgressIndicator()
+      ],
+    ));
   }
 }

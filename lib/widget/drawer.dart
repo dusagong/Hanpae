@@ -1,13 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterfire_ui/auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:hanpae/screens/auth_screen.dart';
 
 class myDrawer extends StatelessWidget {
-  myDrawer({Key? key}) : super(key: key);
+  const myDrawer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +13,7 @@ class myDrawer extends StatelessWidget {
           UserAccountsDrawerHeader(
             currentAccountPicture: CircleAvatar(
               //사용자 계정 이미지
-              backgroundImage: AssetImage('assets/image/sle_image.png'),
+              backgroundImage: AssetImage('assets/image/profile_.tiff'),
               backgroundColor: Colors.white,
             ),
             accountName: Text(FirebaseAuth.instance.currentUser!.displayName.toString()),
@@ -27,7 +22,7 @@ class myDrawer extends StatelessWidget {
             //   print('arrow is clicked');
             // },//쪼꼬미 화살표
             decoration: BoxDecoration(
-                color: Colors.lightGreen,
+                color: Color.fromARGB(255, 6, 15, 82),
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(30.0),
                     bottomRight: Radius.circular(30.0))),
@@ -54,7 +49,7 @@ class myDrawer extends StatelessWidget {
             },
           ),
           const Divider(
-            color: Colors.lightGreen,
+            color: Color.fromARGB(255, 6, 15, 82),
           ),
           // ListTile(
           //   leading: const Icon(Icons.logout),
