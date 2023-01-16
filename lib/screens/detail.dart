@@ -7,14 +7,18 @@ class DetailPage extends StatefulWidget {
   String pageInfo;
   String titleStr;
   String explainStr;
-  String keyValue;
+  String keyValue; 
+  int heart;
   String imgURL;
+  
+ 
   DetailPage(
       {Key? key,
       required this.pageInfo,
       required this.titleStr,
       required this.explainStr,
       required this.keyValue,
+      required this.heart,
       this.imgURL = ''})
       : super(key: key);
 
@@ -49,18 +53,7 @@ class _DetailPageState extends State<DetailPage> {
         appBar: AppBar(
           title: Text(widget.pageInfo),
         ),
-        body: StreamBuilder<QuerySnapshot>(
-            stream: FirebaseFirestore.instance
-                .collection("Posts")
-                .doc(widget.pageInfo)
-                .collection("posts")
-                .snapshots(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();
-              }
-              return SingleChildScrollView(
-                child: Column(
+        body: Column(
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 15.0, bottom: 10.0),
@@ -107,13 +100,19 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 12.0, bottom: 15),
-                      child: LikeButton(
-                        onTap: onLikeButtonTapped,
-                      ),
+                      child: IconButton(
+                        icon:Icon(Icons.favorite) ,
+                        color: Colors.red,
+                        onPressed: (){
+                          
+                        },
+                      )
+                      // LikeButton(
+                      //   onTap: onLikeButtonTapped,
+                      // ),
                     ),
                   ],
                 ),
-              );
-            }));
+            );
   }
 }

@@ -51,87 +51,87 @@ class _LogInState extends State<LogIn>{
           children: [
             Padding(padding: (EdgeInsets.only(top: 50)),
             ),
-            Form(child: Theme(
-              data: ThemeData(
-                primaryColor: Colors.teal,
-                inputDecorationTheme: InputDecorationTheme(
-                  labelStyle: TextStyle(
-                    color: Colors.teal,
-                    fontSize: 15.0
-                  )
-                ),
-              ),
-              child: Container(
-                padding: EdgeInsets.all(40.0),
-                child: Column(
-                  children: [
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Enter "ID"'
-                    ),
-                     onChanged: (value){
-                        idInput = value;
-                      },
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                    TextField(
-                      decoration: InputDecoration(
-                          labelText: 'Enter "Password"'
-                      ),
-                      onChanged: (value){
-                        pwdInput = value;
-                      },
-                      keyboardType: TextInputType.text,
-                      obscureText: true,
-                    ),
-                    SizedBox(
-                      height: 40.0,
-                    ),
-                    ButtonTheme(
-                      minWidth: 100.0 ,
-                        height: 50.0,
-                        child: RaisedButton(
-                            color: Colors.orangeAccent,
-                              child: Icon(
-                                Icons.arrow_forward,
-                              color: Colors.white,
-                              size: 35.0,
-                              ),
+            // Form(child: Theme(
+            //   data: ThemeData(
+            //     primaryColor: Colors.teal,
+            //     inputDecorationTheme: InputDecorationTheme(
+            //       labelStyle: TextStyle(
+            //         color: Colors.teal,
+            //         fontSize: 15.0
+            //       )
+            //     ),
+            //   ),
+            //   child: Container(
+            //     padding: EdgeInsets.all(40.0),
+            //     child: Column(
+            //       children: [
+            //       TextField(
+            //         decoration: InputDecoration(
+            //           labelText: 'Enter "ID"'
+            //         ),
+            //          onChanged: (value){
+            //             idInput = value;
+            //           },
+            //         keyboardType: TextInputType.emailAddress,
+            //       ),
+            //         TextField(
+            //           decoration: InputDecoration(
+            //               labelText: 'Enter "Password"'
+            //           ),
+            //           onChanged: (value){
+            //             pwdInput = value;
+            //           },
+            //           keyboardType: TextInputType.text,
+            //           obscureText: true,
+            //         ),
+            //         SizedBox(
+            //           height: 40.0,
+            //         ),
+            //         ButtonTheme(
+            //           minWidth: 100.0 ,
+            //             height: 50.0,
+            //             child: RaisedButton(
+            //                 color: Colors.orangeAccent,
+            //                   child: Icon(
+            //                     Icons.arrow_forward,
+            //                   color: Colors.white,
+            //                   size: 35.0,
+            //                   ),
 
-                             //이게된다 로그인   
-                            onPressed: () async {
-                              print(idInput);
-                              print(pwdInput);
+            //                  //이게된다 로그인   
+            //                 onPressed: () async {
+            //                   print(idInput);
+            //                   print(pwdInput);
 
-                              try{
-                                final newUser = 
-                                await _authentication.signInWithEmailAndPassword(
-                                email:  idInput,
-                                password: pwdInput
-                                );
+            //                   try{
+            //                     final newUser = 
+            //                     await _authentication.signInWithEmailAndPassword(
+            //                     email:  idInput,
+            //                     password: pwdInput
+            //                     );
 
-                                Get.offAll(MyStatefulWidget());
-                              } catch(e){
-                                print(e);
-                              }
+            //                     Get.offAll(MyStatefulWidget());
+            //                   } catch(e){
+            //                     print(e);
+            //                   }
 
-                            // 이것도 된다 회원가입
-                              try{
-                                final newUser = await _authentication.createUserWithEmailAndPassword(
-                                email: idInput, 
-                                password: pwdInput
-                                );
-                              } catch(e){
-                                print(e);
-                              }
-                          }
-                        )
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            //                 // 이것도 된다 회원가입
+            //                   try{
+            //                     final newUser = await _authentication.createUserWithEmailAndPassword(
+            //                     email: idInput, 
+            //                     password: pwdInput
+            //                     );
+            //                   } catch(e){
+            //                     print(e);
+            //                   }
+            //               }
+            //             )
+            //           )
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
 
             // 구글 로그인 버튼
             OutlinedButton.icon(

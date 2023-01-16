@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hanpae/screens/createpostpage.dart';
 import 'package:hanpae/screens/detail.dart';
 import 'package:hanpae/screens/postcards.dart';
@@ -14,10 +15,19 @@ class BoardScreen extends StatefulWidget {
 
 class _BoardScreenState extends State<BoardScreen> {
   final FirebaseFirestore post = FirebaseFirestore.instance;
-
+  // static final a = FirebaseAuth.instance.currentUser!.email;
+  // final user = FirebaseFirestore.instance.collection('Users').doc(a).collection('Like') as Map<String, dynamic>;
+  // final user = FirebaseFirestore.instance.collection('Users').doc(a).collection('Like') as Map<String, dynamic>;
+  // final user = FirebaseFirestore.instance as Map<String, dynamic>;
+  final Stream<QuerySnapshot<Map<String, dynamic>>> _likelist = FirebaseFirestore.instance
+      .collection("Users")
+      .doc(FirebaseAuth.instance.currentUser?.email)
+      .collection("Like")
+      .snapshots();
+  
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(  
       appBar: AppBar(
         title: Text(widget.pageInfo),
       ),
@@ -36,14 +46,22 @@ class _BoardScreenState extends State<BoardScreen> {
                   itemBuilder: ((context, index) => Container(
                     padding: EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0),
                     child: InkWell(
-                      onTap: () => Get.to(() => DetailPage(
-                        pageInfo: widget.pageInfo,
-                        titleStr: snapshot.data!.docs[index]['title'],
-                        explainStr: snapshot.data!.docs[index]['explain'],
-                        keyValue: snapshot.data!.docs[index]['key'],
-                        imgURL: snapshot.data!.docs[index]['firstPicUrl'],
-                      )
-                        ),
+                      onTap: () {
+                        _likelist.forEach(print);
+                          
+                        
+                        Get.to((){
+                            DetailPage(
+                              pageInfo: widget.pageInfo,
+                              titleStr: snapshot.data!.docs[index]['title'],
+                              explainStr: snapshot.data!.docs[index]['explain'],
+                              keyValue: snapshot.data!.docs[index]['key'],
+                              heart: snapshot.data!.docs[index]['like'],
+                              imgURL: snapshot.data!.docs[index]['firstPicUrl'],
+                            );
+                          }
+                        );
+                      },
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

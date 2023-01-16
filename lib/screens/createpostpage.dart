@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'dart:math';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:hanpae/providers/auth.dart';
 
@@ -13,10 +13,9 @@ class CreatePostPage extends StatefulWidget {
 }
 
 class _CreatePostPageState extends State<CreatePostPage> {
-
   late bool titleUpload;
   late bool contentUpload;
-  
+
   FirebaseFirestore fireStore = FirebaseFirestore.instance;
 
   TextEditingController titleController = TextEditingController();
@@ -95,29 +94,18 @@ class _CreatePostPageState extends State<CreatePostPage> {
                       });
                     },
                   ),
+                ),  
+                Padding(padding: const EdgeInsets.only(left: 23),
+                  child: IconButton(
+                  icon: Icon(Icons.date_range),
+                  onPressed: () {
+                    showDatePickerPop();
+                  },
+                  
                 ),
+                )
+               
               ],
-            ),
-            TextButton(
-              onPressed: () {
-                showDatePickerPop();
-              },
-              child: Container(
-                height: 40,
-                margin: const EdgeInsets.all(10.0),
-                padding: const EdgeInsets.only(
-                  left: 15,
-                ),
-                decoration: BoxDecoration(
-                    border: Border.all(
-                  width: 3,
-                  color: Color.fromARGB(255, 255, 188, 64),
-                )),
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  '마감일 설정',
-                ),
-              ),
             ),
             TextField(
               controller: titleController,
@@ -152,25 +140,36 @@ class _CreatePostPageState extends State<CreatePostPage> {
               ),
             ),
             ElevatedButton(
-              onPressed: _selectedValue == '카테고리' || story =="" || postTitle == ""? null : () {
-                String postKey =getRandomString(16);
-                fireStore.collection("Posts").doc(_selectedValue).collection('posts').doc(postKey).set({
-                  "key": postKey,
-                  "title": postTitle,
-                  "explain": story,
-                  "firstPicUrl": "",
-                  "firstPicWidth": 0,
-                  "firstPicHeight": 0,
-                  "authorName": FirebaseAuth.instance.currentUser!.displayName,
-                  "like": "0",
-                  'timeStamp': DateTime.now(),
-                });
-                  Get.back();
-                  // FirebaseFirestore
-                  // fireStore = FirebaseFirestore.instance;
-              },
-              style: ElevatedButton.styleFrom(onSurface: Color.fromARGB(255, 63, 141, 180)),
-              child: Text("upload")),
+                onPressed: _selectedValue == '카테고리' ||
+                        story == "" ||
+                        postTitle == ""
+                    ? null
+                    : () {
+                        String postKey = getRandomString(16);
+                        fireStore
+                            .collection(_selectedValue)
+                            .doc('Posts')
+                            .collection('Posts')
+                            .doc(postKey)
+                            .set({
+                          "key": postKey,
+                          "title": postTitle,
+                          "explain": story,
+                          "firstPicUrl": "",
+                          "firstPicWidth": 0,
+                          "firstPicHeight": 0,
+                          "authorName":
+                              FirebaseAuth.instance.currentUser!.displayName,
+                          "like": 0,
+                          'timeStamp': DateTime.now(),
+                        });
+                        Get.back();
+                        // FirebaseFirestore
+                        // fireStore = FirebaseFirestore.instance;
+                      },
+                style: ElevatedButton.styleFrom(
+                    onSurface: Color.fromARGB(255, 63, 141, 180)),
+                child: Text("upload")),
           ]),
         ),
       ),
